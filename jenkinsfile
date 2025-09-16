@@ -31,7 +31,10 @@ Build URL: ${env.BUILD_URL}
 Console log is attached.
             """,
             to: 'sidharthsabu2020@gmail.com',
-            attachLog: true
+            attachLog: true,
+	    from: 'sidharthsabu2020@gmail.com',
+            replyTo: 'sidharthsabu2020@gmail.com',
+            credentialsId: 'gmail-credentials'
           )
         }
       }
