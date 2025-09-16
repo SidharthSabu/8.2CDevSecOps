@@ -20,20 +20,17 @@
       }
       post {
         always {
-          mail(
-            to:      'sidharthsabu2020@gmail.com',
-            from:    'sidharthsabu2020@gmail.com',
-            replyTo: 'sidharthsabu2020@gmail.com',
+          emailext (
             subject: "Test Stage Complete - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-            body: """\
+            body: """
 Test Stage Status: ${currentBuild.currentResult}
 Project: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 
 Console log is attached.
-""",
-            credentialsId: 'gmail-credentials',
+            """,
+            to: 'sidharthsabu2020@gmail.com',
             attachLog: true
           )
         }
@@ -52,20 +49,17 @@ Console log is attached.
       }
       post {
         always {
-          mail(
-            to:      'sidharthsabu2020@gmail.com',
-            from:    'sidharthsabu2020@gmail.com',
-            replyTo: 'sidharthsabu2020@gmail.com',
+          emailext (
             subject: "Security Scan Complete - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-            body: """\
+            body: """
 Security Scan Status: ${currentBuild.currentResult}
 Project: ${env.JOB_NAME}
 Build Number: ${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 
 Security scan results and console log are attached.
-""",
-            credentialsId: 'gmail-credentials',
+            """,
+            to: 'sidharthsabu2020@gmail.com',
             attachLog: true
           )
         }
