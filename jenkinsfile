@@ -16,8 +16,24 @@ pipeline {
 
     stage('Run Tests') {
       steps {
-        // Continue pipeline despite test failures
         sh 'npm test || true'
+      }
+      post {
+        always {
+          emailext (
+            subject: "Test Stage Complete - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+Test Stage Status: ${currentBuild.currentResult}
+Project: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+
+Console log is attached.
+            """,
+            to: 'sidharthsabu2020@gmail.com',
+            attachLog: true
+          )
+        }
       }
     }
 
@@ -30,6 +46,23 @@ pipeline {
     stage('NPM Audit (Security Scan)') {
       steps {
         sh 'npm audit || true'
+      }
+      post {
+        always {
+          emailext (
+            subject: "Security Scan Complete - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+Security Scan Status: ${currentBuild.currentResult}
+Project: ${env.JOB_NAME}
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+
+Security scan results and console log are attached.
+            """,
+            to: 'sidharthsabu2020@gmail.com',
+            attachLog: true
+          )
+        }
       }
     }
   }
